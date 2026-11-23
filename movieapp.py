@@ -1,3 +1,4 @@
+
 import pickle
 import pandas as pd
 import requests
@@ -5,7 +6,7 @@ import streamlit as st
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-st.set_page_config(page_title="Movie Recommender", page_icon="🎬", layout="wide")
+st.set_page_config(page_title="MovieFlix", page_icon="🎬", layout="wide")
 
 API_KEY = st.secrets["TMDB_API_KEY"]
 
@@ -40,8 +41,42 @@ def recommend(movie):
 movies = pd.DataFrame(pickle.load(open("movie_dict.pkl", "rb")))
 neighbors = pickle.load(open("neighbors.pkl", "rb"))
 
-st.title("🎬 Movie Recommender System")
-st.caption("Pick a movie and discover similar ones")
+# ---------- MovieFlix banner ----------
+st.markdown("""
+<style>
+.hero {
+background: linear-gradient(120deg, #141414 35%, #b20710 100%);
+padding: 35px 40px;
+border-radius: 14px;
+margin-bottom: 20px;
+}
+.hero h1 {
+color: #ffffff;
+font-size: 38px;
+font-weight: 700;
+margin: 0 0 14px 0;
+padding: 0;
+}
+.hero h3 {
+color: #ffffff;
+font-size: 20px;
+font-weight: 600;
+margin: 0 0 6px 0;
+padding: 0;
+}
+.hero p {
+color: #cfcfcf;
+font-size: 14px;
+margin: 0;
+}
+</style>
+<div class="hero">
+<h1>🎬 MovieFlix</h1>
+<h3>AI Powered Movie Recommendation System</h3>
+<p>Get personalized movie recommendations instantly.</p>
+</div>
+""", unsafe_allow_html=True)
+# --------------------------------------
 
 selected_movie_name = st.selectbox("Select a movie", movies["title"].values)
 
